@@ -1,0 +1,104 @@
+# 必需的输入变量 #
+need ${姓名}
+need ${订单号}
+need ${商品名称}
+
+# 主程序入口 #
+procedure 问候
+    output ${姓名} + "您好，我是淘宝客服小淘，很高兴为您服务！"
+    output "请问您需要什么帮助呢？（输入 帮助 获取可用命令）"
+    input ${答复}
+
+    branch 帮助 when ${答复} like "帮助" or ${答复} like "4"
+    branch 查询订单 when ${答复} like "订单" or ${答复} like "查询" or ${答复} like "1"
+    branch 退款申请 when ${答复} like "退款" or ${答复} like "退货" or ${答复} like "2"
+    branch 投诉商家 when ${答复} like "投诉" or ${答复} like "举报" or ${答复} like "3"
+    default 重新问一遍
+
+# 帮助信息 #
+procedure 帮助
+    output "=== 可用命令列表 ==="
+    output "1. 订单/查询 - 查询您的订单信息"
+    output "2. 退款/退货 - 申请退款或退货"
+    output "3. 投诉/举报 - 投诉或举报商家"
+    output "4. 帮助 - 显示此帮助信息"
+    output "================="
+    output "请问您需要什么帮助呢？"
+    input ${答复}
+
+    branch 查询订单 when ${答复} like "订单" or ${答复} like "查询" or ${答复} like "1"
+    branch 退款申请 when ${答复} like "退款" or ${答复} like "退货" or ${答复} like "2"
+    branch 投诉商家 when ${答复} like "投诉" or ${答复} like "举报" or ${答复} like "3"
+    default 重新问一遍
+
+# 重新询问 #
+procedure 重新问一遍
+    output "抱歉没有听清，请问您需要什么帮助呢？（输入 帮助 获取可用命令）"
+    input ${答复}
+
+    branch 帮助 when ${答复} like "帮助" or ${答复} like "4"
+    branch 查询订单 when ${答复} like "订单" or ${答复} like "查询" or ${答复} like "1"
+    branch 退款申请 when ${答复} like "退款" or ${答复} like "退货" or ${答复} like "2"
+    branch 投诉商家 when ${答复} like "投诉" or ${答复} like "举报" or ${答复} like "3"
+    default 重新问一遍
+
+# 订单相关流程 #
+procedure 查询订单
+    output "好的，我来帮您查询订单信息"
+    output "您的订单号是: " + ${订单号}
+    output "商品名称是: " + ${商品名称}
+
+    branch 订单发货 when ${订单号} like "TB123456789"
+    branch 订单待发货 when ${订单号} like "TB987654321"
+    default 订单异常
+
+procedure 订单发货
+    output "您的订单已发货，预计 3 天内送达"
+    output "物流单号: YT098765432"
+    default 询问后续
+
+procedure 订单待发货
+    output "您的订单正在处理中，商家将在 24 小时内发货"
+    default 询问后续
+
+procedure 订单异常
+    output "抱歉，没有找到该订单信息，请核对订单号是否正确"
+    default 询问后续
+
+# 后续服务询问 #
+procedure 询问后续
+    output "请问您还有其他问题需要帮助吗？（输入 帮助 获取可用命令）"
+    input ${答复}
+
+    branch 帮助 when ${答复} like "帮助" or ${答复} like "4"
+    branch 查询订单 when ${答复} like "订单" or ${答复} like "查询" or ${答复} like "1"
+    branch 退款申请 when ${答复} like "退款" or ${答复} like "退货" or ${答复} like "2"
+    branch 投诉商家 when ${答复} like "投诉" or ${答复} like "举报" or ${答复} like "3"
+
+    branch 再见 when ${答复} like "没有" or ${答复} like "结束" or ${答复} like "再见"
+    default 确认结束
+
+procedure 确认结束
+    output "需要我为您提供其他帮助吗？（回答 是 或 否）"
+    input ${答复}
+
+    branch 询问后续 when ${答复} like "是" or ${答复} like "需要"
+    branch 再见 when ${答复} like "否" or ${答复} like "不需要"
+    default 确认结束
+
+# 退款流程 #
+procedure 退款申请
+    output "好的，请问您要退款的原因是？"
+    input ${退款原因}
+    output "已经收到您的退款申请，请在 我的退款 中查看进度"
+    default 询问后续
+
+# 投诉流程 #
+procedure 投诉商家
+    output "您的投诉已经记录，我们会认真核实并处理"
+    output "如有任何证据材料，可以在订单页面上传"
+    default 询问后续
+
+# 结束对话 #
+procedure 再见
+    output "感谢您的咨询，祝您购物愉快，再见！"

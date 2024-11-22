@@ -1,0 +1,39 @@
+need ${姓名}
+need ${电话号码}
+
+procedure 问候
+    output ${姓名} + "同志您好，请问您有什么需要的吗？"
+    input ${答复}
+
+    branch 话费查询 when ${答复} like "话费"
+    branch 举报 when ${答复} like "举报"
+    default 重新问一遍
+
+procedure 重新问一遍
+    output "对不起，我没有听清，请问您有什么需要的吗？"
+    input ${答复}
+
+    branch 话费查询 when ${答复} like "话费"
+    branch 举报 when ${答复} like "举报"
+    default 重新问一遍
+
+procedure 话费查询
+    output "请稍后，马上根据您的电话号码进行查询"
+
+    branch 话费好多 when ${电话号码} like "13576681207"
+    default 欠费
+
+procedure 话费好多
+    output "您的话费余额为 100 元"
+    default 再见
+
+procedure 欠费
+    output "您的话费余额为 -100 元，已欠费"
+    default 再见
+
+procedure 举报
+    output ${姓名} + "同志，请您注意，互联网不是法外之地！"
+    default 再见
+
+procedure 再见
+    output "感谢您的致电，再见！"

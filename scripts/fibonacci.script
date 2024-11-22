@@ -1,0 +1,32 @@
+procedure 启动
+    output "您好！我是斐波那契数列计算小能手，请问您需要计算哪一项呢？"
+    input ${项数字符串}
+    let ${项数} = cast ${项数字符串} to integer
+    branch 回复一 when ${项数} <= 2
+    default 计算启动
+
+procedure 计算启动
+    let ${a1} = 1
+    let ${a2} = 1
+    let ${n} = ${项数}
+
+    default 计算
+
+procedure 计算
+    let ${tmp} = ${a1} + ${a2}
+    let ${a1} = ${a2}
+    let ${a2} = ${tmp}
+    let ${n} = ${n} - 1
+    branch 计算结束 when ${n} == 2
+    default 计算
+
+procedure 回复一
+    output "哈哈，答案就是 1 啦！"
+    default 再见
+
+procedure 计算结束
+    output "哈哈，答案就是 " + (cast ${a2} to string) + " 啦！"
+    default 再见
+
+procedure 再见
+    output "以后还要算斐波那契数列的话，记得找我哟！"

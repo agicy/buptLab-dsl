@@ -1,0 +1,135 @@
+# 必需的输入变量 #
+need ${姓名}
+need ${手机号}
+
+# 主程序入口 #
+procedure 问候
+    output ${姓名} + "您好，我是中国移动在线客服小移，很高兴为您服务！"
+    output "请问您需要什么帮助呢？（输入 帮助 获取可用命令）"
+    input ${答复}
+
+    branch 帮助 when ${答复} like "帮助" or ${答复} like "5"
+    branch 套餐查询 when ${答复} like "套餐" or ${答复} like "1"
+    branch 话费查询 when ${答复} like "话费" or ${答复} like "余额" or ${答复} like "2"
+    branch 业务办理 when ${答复} like "业务" or ${答复} like "办理" or ${答复} like "3"
+    branch 故障报修 when ${答复} like "故障" or ${答复} like "报修" or ${答复} like "4"
+    default 重新问一遍
+
+# 帮助信息 #
+procedure 帮助
+    output "=== 可用命令列表 ==="
+    output "1. 套餐查询 - 查询您的套餐使用情况"
+    output "2. 话费查询 - 查询您的话费余额"
+    output "3. 业务办理 - 办理各项移动业务"
+    output "4. 故障报修 - 网络或设备故障报修"
+    output "5. 帮助 - 显示此帮助信息"
+    output "================="
+    output "请问您需要什么帮助呢？"
+    input ${答复}
+
+    branch 套餐查询 when ${答复} like "套餐" or ${答复} like "1"
+    branch 话费查询 when ${答复} like "话费" or ${答复} like "余额" or ${答复} like "2"
+    branch 业务办理 when ${答复} like "业务" or ${答复} like "办理" or ${答复} like "3"
+    branch 故障报修 when ${答复} like "故障" or ${答复} like "报修" or ${答复} like "4"
+    default 重新问一遍
+
+# 重新询问 #
+procedure 重新问一遍
+    output "抱歉没有听清，请问您需要什么帮助呢？（输入 帮助 获取可用命令）"
+    input ${答复}
+
+    branch 帮助 when ${答复} like "帮助" or ${答复} like "5"
+    branch 套餐查询 when ${答复} like "套餐" or ${答复} like "1"
+    branch 话费查询 when ${答复} like "话费" or ${答复} like "余额" or ${答复} like "2"
+    branch 业务办理 when ${答复} like "业务" or ${答复} like "办理" or ${答复} like "3"
+    branch 故障报修 when ${答复} like "故障" or ${答复} like "报修" or ${答复} like "4"
+    default 重新问一遍
+
+# 套餐查询流程 #
+procedure 套餐查询
+    output "好的，我来帮您查询套餐使用情况"
+    output "您的手机号是: " + ${手机号}
+    output "当前套餐: 5G畅享套餐88元"
+    output "套餐内剩余流量: 3.5GB"
+    output "套餐内剩余通话: 168分钟"
+    default 询问后续
+
+# 话费查询流程 #
+procedure 话费查询
+    output "好的，我来帮您查询话费余额"
+    output "您的手机号是: " + ${手机号}
+    output "当前话费余额: 76.50元"
+    output "本月已消费: 45.30元"
+    default 询问后续
+
+# 业务办理流程 #
+procedure 业务办理
+    output "请选择要办理的业务类型："
+    output "1. 套餐变更"
+    output "2. 流量包办理"
+    output "3. 国际漫游"
+    output "4. 增值业务"
+    input ${业务类型}
+
+    branch 套餐变更 when ${业务类型} like "1" or ${业务类型} like "套餐"
+    branch 流量包办理 when ${业务类型} like "2" or ${业务类型} like "流量"
+    branch 国际漫游 when ${业务类型} like "3" or ${业务类型} like "漫游"
+    branch 增值业务 when ${业务类型} like "4" or ${业务类型} like "增值"
+    default 重新选择业务
+
+procedure 国际漫游
+    output "很抱歉，我们暂时不能办理国际漫游"
+    default 询问后续
+
+procedure 增值业务
+    output "很抱歉，我们暂时不能办理增值服务"
+    default 询问后续
+
+procedure 套餐变更
+    output "我们将为您转接人工客服办理套餐变更业务"
+    output "请稍候..."
+    default 询问后续
+
+procedure 流量包办理
+    output "请选择要办理的流量包："
+    output "1. 1GB流量包 10元"
+    output "2. 3GB流量包 25元"
+    output "3. 10GB流量包 70元"
+    default 询问后续
+
+procedure 重新选择业务
+    output "抱歉，没有理解您的选择，请重新选择业务类型"
+    default 业务办理
+
+# 故障报修流程 #
+procedure 故障报修
+    output "请描述您遇到的故障情况："
+    input ${故障描述}
+    output "已记录您的故障信息，我们将安排技术人员处理"
+    output "预计2小时内联系您处理，请保持手机畅通"
+    default 询问后续
+
+# 后续服务询问 #
+procedure 询问后续
+    output "请问您还有其他问题需要帮助吗？（输入 帮助 获取可用命令）"
+    input ${答复}
+
+    branch 帮助 when ${答复} like "帮助" or ${答复} like "5"
+    branch 套餐查询 when ${答复} like "套餐" or ${答复} like "1"
+    branch 话费查询 when ${答复} like "话费" or ${答复} like "余额" or ${答复} like "2"
+    branch 业务办理 when ${答复} like "业务" or ${答复} like "办理" or ${答复} like "3"
+    branch 故障报修 when ${答复} like "故障" or ${答复} like "报修" or ${答复} like "4"
+    branch 再见 when ${答复} like "没有" or ${答复} like "结束" or ${答复} like "再见"
+    default 确认结束
+
+procedure 确认结束
+    output "需要我为您提供其他帮助吗？（回答 是 或 否）"
+    input ${答复}
+
+    branch 询问后续 when ${答复} like "是" or ${答复} like "需要"
+    branch 再见 when ${答复} like "否" or ${答复} like "不需要"
+    default 确认结束
+
+# 结束对话 #
+procedure 再见
+    output "感谢您的咨询，如有其他问题请随时询问，祝您生活愉快，再见！"

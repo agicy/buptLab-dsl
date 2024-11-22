@@ -1,0 +1,192 @@
+procedure 欢迎
+    output "您好！我是排序小高手，由于我的设计语言不图灵完备，所以我暂时只能对不超过九个数字进行排序哦！"
+    output "请您输入数字个数："
+    let ${a1} = 18446744073709551616
+    let ${a2} = 18446744073709551616
+    let ${a3} = 18446744073709551616
+    let ${a4} = 18446744073709551616
+    let ${a5} = 18446744073709551616
+    let ${a6} = 18446744073709551616
+    let ${a7} = 18446744073709551616
+    let ${a8} = 18446744073709551616
+    let ${a9} = 18446744073709551616
+    input ${数组大小}
+    let ${数组大小} = cast ${数组大小} to integer
+    let ${输入临时变量} = ${数组大小}
+    let ${下标} = 0
+    branch 非法输入 when ${数组大小} < 0 or ${数组大小} > 9
+    default 输入
+
+procedure 非法输入
+    output "我不会，我不会！长大后再学习！"
+
+procedure 输入
+    let ${下标} = ${下标} + 1
+    output "请您输入第 " + (cast ${下标} to string) + " 个数"
+    input ${数字}
+    branch 存放1 when ${下标} == 1
+    branch 存放2 when ${下标} == 2
+    branch 存放3 when ${下标} == 3
+    branch 存放4 when ${下标} == 4
+    branch 存放5 when ${下标} == 5
+    branch 存放6 when ${下标} == 6
+    branch 存放7 when ${下标} == 7
+    branch 存放8 when ${下标} == 8
+    branch 存放9 when ${下标} == 9
+
+procedure 存放1
+    let ${a1} = cast ${数字} to integer
+    branch 排序 when ${下标} == ${数组大小}
+    default 输入
+
+procedure 存放2
+    let ${a2} = cast ${数字} to integer
+    branch 排序 when ${下标} == ${数组大小}
+    default 输入
+
+procedure 存放3
+    let ${a3} = cast ${数字} to integer
+    branch 排序 when ${下标} == ${数组大小}
+    default 输入
+
+procedure 存放4
+    let ${a4} = cast ${数字} to integer
+    branch 排序 when ${下标} == ${数组大小}
+    default 输入
+
+procedure 存放5
+    let ${a5} = cast ${数字} to integer
+    branch 排序 when ${下标} == ${数组大小}
+    default 输入
+
+procedure 存放6
+    let ${a6} = cast ${数字} to integer
+    branch 排序 when ${下标} == ${数组大小}
+    default 输入
+
+procedure 存放7
+    let ${a7} = cast ${数字} to integer
+    branch 排序 when ${下标} == ${数组大小}
+    default 输入
+
+procedure 存放8
+    let ${a8} = cast ${数字} to integer
+    branch 排序 when ${下标} == ${数组大小}
+    default 输入
+
+procedure 存放9
+    let ${a9} = cast ${数字} to integer
+    branch 排序 when ${下标} == ${数组大小}
+    default 输入
+
+procedure 排序
+    branch swap12 when ${a1} > ${a2}
+    branch swap23 when ${a2} > ${a3}
+    branch swap34 when ${a3} > ${a4}
+    branch swap45 when ${a4} > ${a5}
+    branch swap56 when ${a5} > ${a6}
+    branch swap67 when ${a6} > ${a7}
+    branch swap78 when ${a7} > ${a8}
+    branch swap89 when ${a8} > ${a9}
+    default 排序结束
+
+procedure swap12
+    let ${tmp} = ${a1}
+    let ${a1} = ${a2}
+    let ${a2} = ${tmp}
+    default 排序
+
+procedure swap23
+    let ${tmp} = ${a2}
+    let ${a2} = ${a3}
+    let ${a3} = ${tmp}
+    default 排序
+
+procedure swap34
+    let ${tmp} = ${a3}
+    let ${a3} = ${a4}
+    let ${a4} = ${tmp}
+    default 排序
+
+procedure swap45
+    let ${tmp} = ${a4}
+    let ${a4} = ${a5}
+    let ${a5} = ${tmp}
+    default 排序
+
+procedure swap56
+    let ${tmp} = ${a5}
+    let ${a5} = ${a6}
+    let ${a6} = ${tmp}
+    default 排序
+
+procedure swap67
+    let ${tmp} = ${a6}
+    let ${a6} = ${a7}
+    let ${a7} = ${tmp}
+    default 排序
+
+procedure swap78
+    let ${tmp} = ${a7}
+    let ${a7} = ${a8}
+    let ${a8} = ${tmp}
+    default 排序
+
+procedure swap89
+    let ${tmp} = ${a8}
+    let ${a8} = ${a9}
+    let ${a9} = ${tmp}
+    default 排序
+
+procedure 排序结束
+    output "排序结束了！下面我来输出结果："
+    let ${输出下标} = 1
+    default 输出1
+
+procedure 结束
+    output "怎么样？排的对吗？再见！"
+
+procedure 输出1
+    output "第 1 小的数字是 " + (cast ${a1} to string)
+    branch 结束 when ${数组大小} == 1
+    default 输出2
+
+procedure 输出2
+    output "第 2 小的数字是 " + (cast ${a2} to string)
+    branch 结束 when ${数组大小} == 2
+    default 输出3
+
+procedure 输出3
+    output "第 3 小的数字是 " + (cast ${a3} to string)
+    branch 结束 when ${数组大小} == 3
+    default 输出4
+
+procedure 输出4
+    output "第 4 小的数字是 " + (cast ${a4} to string)
+    branch 结束 when ${数组大小} == 4
+    default 输出5
+
+procedure 输出5
+    output "第 5 小的数字是 " + (cast ${a5} to string)
+    branch 结束 when ${数组大小} == 5
+    default 输出6
+
+procedure 输出6
+    output "第 6 小的数字是 " + (cast ${a6} to string)
+    branch 结束 when ${数组大小} == 6
+    default 输出7
+
+procedure 输出7
+    output "第 7 小的数字是 " + (cast ${a7} to string)
+    branch 结束 when ${数组大小} == 7
+    default 输出8
+
+procedure 输出8
+    output "第 8 小的数字是 " + (cast ${a8} to string)
+    branch 结束 when ${数组大小} == 8
+    default 输出9
+
+procedure 输出9
+    output "第 9 小的数字是 " + (cast ${a9} to string)
+    branch 结束 when ${数组大小} == 9
+    default 结束
