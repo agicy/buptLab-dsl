@@ -1,0 +1,8 @@
+# Ignore Visual Studio Code configuration files, including settings, launch configurations, and extensions.
+.vscode
+
+# Ignore the virtual environment directory.
+.venv
+
+# Ignore the Python cache directory, which contains compiled bytecode files.
+__pycache__
